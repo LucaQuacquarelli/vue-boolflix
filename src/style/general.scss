@@ -1,0 +1,14 @@
+@import "~@fontsource/raleway/index.css";
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    background-color: black;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+}

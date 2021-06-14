@@ -1,28 +1,54 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header/>
+    <div class="app-container">
+      <Aside @search="searchMovie"/>
+      <Main
+      :search="finded"/>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/Header.vue'
+import Aside from './components/Aside.vue'
+import Main from './components/Main.vue'
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Aside,
+    Header,
+    Main
+    
+  },
+  data: function() {
+    return {
+      finded: ""
+    }
+  },
+  methods: {
+    searchMovie: function(findedMovie) {
+      this.finded = findedMovie
+    }
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  @import "./style/general";
+    
+    #app {
+      height: 100%;
+
+      .app-container {
+        display: flex;
+        height: calc(100% - 80px);
+      }
+
+    }
+
+  
+  
 </style>
