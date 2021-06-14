@@ -6,6 +6,10 @@
         @keyup.enter="setAside"
         v-model="findedMovie"> 
         <div class="icon-container">
+            <div class="btn-container">
+                <i class="fas fa-home"></i>
+                <span v-if="status">Home</span>
+            </div>
             <div class="btn-container" @click="setAside" :class="status ? 'active' : ''">
                 <i class="fas fa-search"></i>
                 <span v-if="status">Cerca</span>
@@ -80,15 +84,20 @@ export default {
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
+                margin: 10px 0;
                 text-align: center;
+                cursor: pointer;
 
                 &.active {
                     padding: 0 80px;
                 }
+
+                &:hover i {
+                    color: $color-theme;
+                }
                 
                 i {
                     margin: 5px 0;
-                    cursor: pointer;
                 }
             }
 
