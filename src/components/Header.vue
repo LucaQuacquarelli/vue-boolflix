@@ -41,7 +41,7 @@ export default {
                 width: 25px;
                 height: 25px;
                 margin: 0 15px;
-                background-color: #db1a28;
+                background-color: $color-theme;
                 border-radius: 50%;
                 font-size: 12px;
             }

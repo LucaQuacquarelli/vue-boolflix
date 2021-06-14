@@ -2,7 +2,12 @@
     <main>
         <h2>Risultati per '{{search}}'</h2>
         <div class="film-container">
-            <FilmCard/>
+            <FilmCard v-for="(movie, index) in movies" :key="index"
+            :cover="movie.poster_path"
+            :title="movie.title"
+            :originalTitle="movie.original_title"
+            :language="movie.original_language"
+            :vote="movie.vote_average"/>
         </div>
     </main>
 </template>
@@ -21,12 +26,7 @@ export default {
     },
     data: function() {
         return {
-            finded: "."
-        }
-    },
-    methods: {
-        setFinded: function() {
-            this.finded = this.search
+            movies: []
         }
     },
     updated: function() {
@@ -34,12 +34,12 @@ export default {
             .get("https://api.themoviedb.org/3/search/movie", {
                 params: {
                     api_key: "ffe0662e93ba06b23193db8072b78d11",
-                    query: this.finded
+                    query: this.search
                 }
             })
             .then(
                 (res) => {
-                    console.log(res.data);
+                    this.movies = res.data.results;
                 }
             )
             
@@ -55,6 +55,7 @@ export default {
 
         .film-container {
             display: flex;
+            flex-wrap: wrap;
             height: 300px;
             margin: 20px 0;
         }

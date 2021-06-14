@@ -64,7 +64,7 @@ export default {
             outline: none;
 
             &:focus {
-                border: 2px solid #db1a28;
+                border: 2px solid $color-theme;
             }
         }
 
