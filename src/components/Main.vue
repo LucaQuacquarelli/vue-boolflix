@@ -39,7 +39,21 @@ export default {
             })
             .then(
                 (res) => {
-                    this.movies = res.data.results;
+
+                    var result = res.data.results;
+
+                    result.forEach(
+                        (element) => {
+                        if (element.original_language == "it") {
+                            element.original_language = "🇮🇹"
+                        } else if (element.original_language == "en") {
+                            element.original_language = "🇬🇧"
+                        }
+                    });
+                    
+
+                    this.movies = result;
+                    
                 }
             )
             
