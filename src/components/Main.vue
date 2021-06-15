@@ -9,10 +9,15 @@
             <div class="film-container">
                 <FilmCard v-for="movie in movies" :key="movie.id"
                 :item="movie"
-                :stars="getStars(movie.vote_average)"/>
+                :stars="getStars(movie.vote_average)"
+                @setPlay="showTrailer"/>
             </div>
         </div>
-        
+        <div class="trailer-container" v-if="trailer">
+            <video controls autoplay>
+                <source src="../assets/video/trailer.mp4" type="video/mp4">
+            </video>
+        </div>
     </main>
 </template>
 
@@ -28,9 +33,17 @@ export default {
         movies: Array,
         search: String
     },
+    data: function() {
+        return {
+            trailer: false
+        }
+    },
     methods: {
         getStars(number) {
             return Math.floor(parseInt(number) / 2);
+        },
+        showTrailer: function(play) {
+            this.trailer = play
         }
     }
     
@@ -38,8 +51,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../style/variables";
     main {
         width: 100%;
+        position: relative;
         overflow-y: auto;
 
         .home {
@@ -63,12 +78,27 @@ export default {
 
         .searched-container {
             padding: 50px 20px;
+            
+            .film-container {
+                display: flex;
+                flex-wrap: wrap;
+                margin: 20px 0;
+            }
         }
 
-        .film-container {
-            display: flex;
-            flex-wrap: wrap;
-            margin: 20px 0;
+        .trailer-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 250px;
+            z-index: 2;
+
+            video {
+                width: 100%;
+                height: 100%;
+            }
         }
     }
 </style>

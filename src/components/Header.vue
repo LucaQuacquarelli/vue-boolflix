@@ -1,6 +1,6 @@
 <template>
     <header>
-        <img src="../assets/netflix-logo.png" alt="Netflix Logo">
+        <img src="../assets/img/netflix-logo.png" alt="Netflix Logo">
         <div class="user-container">
             <i class="fas fa-bell"></i>
             <div class="user">LQ</div>

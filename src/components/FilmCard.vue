@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card" @mouseup="$emit('setPlay', play)" @click="setTrailer">
         <img :src="item.poster_path" :alt="item.title">
         <div class="card-info">
             <h5>Titolo: <span>{{item.title}}{{item.name}}</span></h5>
@@ -20,6 +20,7 @@
             </h6>
         </div>
     </div>
+    
 </template>
 
 <script>
@@ -28,6 +29,16 @@ export default {
     props: {
         item: Object,
         stars: Number
+    },
+    data: function() {
+        return {
+            play: true
+        }
+    },
+    methods: {
+        setTrailer: function() {
+            this.play = !this.play
+        }
     }
 }
 </script>
@@ -72,4 +83,5 @@ export default {
         }
 
     }
+    
 </style>
