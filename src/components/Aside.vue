@@ -6,7 +6,7 @@
         @keyup.enter="setAside"
         v-model="findedMovie"> 
         <div class="icon-container">
-            <div class="btn-container">
+            <div class="btn-container" @click="returnHome" @mouseup="$emit('home', findedMovie)">
                 <i class="fas fa-home"></i>
                 <span v-if="status">Home</span>
             </div>
@@ -38,6 +38,10 @@ export default {
     methods: {
         setAside: function() {
             this.status = !this.status
+            this.findedMovie = ""
+        },
+        returnHome: function() {
+            this.status = false
             this.findedMovie = ""
         }
     }

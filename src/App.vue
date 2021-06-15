@@ -2,7 +2,7 @@
   <div id="app">
     <Header/>
     <div class="app-container">
-      <Aside @search="searchMovie"/>
+      <Aside @search="searchMovie" @home="returnHome"/>
       <Main
       :movies="films"
       :search="finded"/>
@@ -73,6 +73,10 @@ export default {
             this.films = answers
             this.finded = findedMovie;
           }))
+    },
+    returnHome: function() {
+      this.films = []
+      this.finded = "";
     }
   }
 }
