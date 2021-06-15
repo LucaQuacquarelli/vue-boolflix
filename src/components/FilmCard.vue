@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <img :src="`https://image.tmdb.org/t/p/w342/${item.poster_path}`" :alt="item.title">
+        <img :src="item.poster_path" :alt="item.title">
         <div class="card-info">
             <h5>Titolo: <span>{{item.title}}{{item.name}}</span></h5>
             <h6>Titolo originale: <span>{{item.original_title}}{{item.original_name}}</span></h6>

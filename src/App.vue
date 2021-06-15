@@ -55,11 +55,19 @@ export default {
 
             answers.forEach(
               (element) => {
+
                 if (element.original_language == "it") {
                   element.original_language = "🇮🇹"
                 } else if (element.original_language == "en") {
                   element.original_language = "🇬🇧"
                 }
+
+                if (element.poster_path == null) {
+                  element.poster_path = "https://i.pinimg.com/originals/a0/25/5d/a0255d73a758bf7b8eaf81e07e8f125d.jpg"
+                } else {
+                  element.poster_path = `https://image.tmdb.org/t/p/w342/${element.poster_path}`
+                }
+
               });
 
             this.films = answers
