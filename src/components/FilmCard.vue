@@ -1,11 +1,11 @@
 <template>
     <div class="card">
-        <img :src="`https://image.tmdb.org/t/p/w342/${cover}`" :alt="title">
+        <img :src="`https://image.tmdb.org/t/p/w342/${item.poster_path}`" :alt="item.title">
         <div class="card-info">
-            <h5>Titolo: <span>{{title}}</span></h5>
-            <h6>Titolo originale: <span>{{originalTitle}}</span></h6>
-            <h6>Lingua: <span>{{language}}</span></h6>
-            <h6>Voto: <span>{{vote}}</span></h6>
+            <h5>Titolo: <span>{{item.title}}</span></h5>
+            <h6>Titolo originale: <span>{{item.original_title}}</span></h6>
+            <h6>Lingua: <span>{{item.original_language}}</span></h6>
+            <h6>Voto: <span>{{Math.floor(item.vote_average)}}</span></h6>
         </div>
     </div>
 </template>
@@ -14,11 +14,7 @@
 export default {
     name: "FilmCard",
     props: {
-        cover: String,
-        title: String,
-        originalTitle: String,
-        language: String,
-        vote: Number,
+        item: Object
     }
 }
 </script>
