@@ -5,7 +5,19 @@
             <h5>Titolo: <span>{{item.title}}</span></h5>
             <h6>Titolo originale: <span>{{item.original_title}}</span></h6>
             <h6>Lingua: <span>{{item.original_language}}</span></h6>
-            <h6>Voto: <span>{{Math.floor(item.vote_average)}}</span></h6>
+            <h6>Voto: <span>{{item.vote_average}}</span></h6>
+            <h6>Voto: 
+                <span>
+                    <i class="fas fa-star"
+                    v-for="index in stars" :key="index"
+                    ></i>
+                </span>
+                <span>
+                    <i  v-for="index in (5 - stars)" 
+                        :key="index" 
+                        class="far fa-star"></i>
+                </span>
+            </h6>
         </div>
     </div>
 </template>
@@ -14,7 +26,8 @@
 export default {
     name: "FilmCard",
     props: {
-        item: Object
+        item: Object,
+        stars: Number
     }
 }
 </script>

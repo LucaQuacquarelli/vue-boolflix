@@ -8,7 +8,8 @@
             <h2>Risultati per '{{search}}'</h2>
             <div class="film-container">
                 <FilmCard v-for="movie in movies" :key="movie.id"
-                :item="movie"/>
+                :item="movie"
+                :stars="getStars(movie.vote_average)"/>
             </div>
         </div>
         
@@ -26,6 +27,11 @@ export default {
     props: {
         movies: Array,
         search: String
+    },
+    methods: {
+        getStars(number) {
+            return Math.floor(parseInt(number) / 2);
+        }
     }
     
 }
