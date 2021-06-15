@@ -2,11 +2,11 @@
     <div class="card">
         <img :src="`https://image.tmdb.org/t/p/w342/${item.poster_path}`" :alt="item.title">
         <div class="card-info">
-            <h5>Titolo: <span>{{item.title}}</span></h5>
-            <h6>Titolo originale: <span>{{item.original_title}}</span></h6>
+            <h5>Titolo: <span>{{item.title}}{{item.name}}</span></h5>
+            <h6>Titolo originale: <span>{{item.original_title}}{{item.original_name}}</span></h6>
             <h6>Lingua: <span>{{item.original_language}}</span></h6>
             <h6>Voto: <span>{{item.vote_average}}</span></h6>
-            <h6>Voto: 
+            <h6>Rate: 
                 <span>
                     <i class="fas fa-star"
                     v-for="index in stars" :key="index"
@@ -55,6 +55,7 @@ export default {
             display: none;
             position: absolute;
             top: 0;
+            width: 100%;
             height: 100%;
             padding: 15px;
             color: $color-theme;

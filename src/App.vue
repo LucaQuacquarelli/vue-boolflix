@@ -33,29 +33,38 @@ export default {
   },
   methods: {
     searchMovie: function(findedMovie) {
-      axios
-        .get("https://api.themoviedb.org/3/search/movie",{
-          params: {
-            api_key: "ffe0662e93ba06b23193db8072b78d11",
-            query: findedMovie
-          }
-        })
-        .then (
-          (res) => {
-            var result = res.data.results;
+      axios.all([
+        axios
+          .get("https://api.themoviedb.org/3/search/movie",{
+            params: {
+              api_key: "ffe0662e93ba06b23193db8072b78d11",
+              query: findedMovie
+            }
+          }),
+        
+        axios
+          .get("https://api.themoviedb.org/3/search/tv",{
+            params: {
+              api_key: "ffe0662e93ba06b23193db8072b78d11",
+              query: findedMovie
+            }
+          })
+      ])
+          .then (axios.spread((...res) => {
+            var answers = res[0].data.results.concat(res[1].data.results);
 
-            result.forEach(
+            answers.forEach(
               (element) => {
                 if (element.original_language == "it") {
-                    element.original_language = "🇮🇹"
+                  element.original_language = "🇮🇹"
                 } else if (element.original_language == "en") {
-                    element.original_language = "🇬🇧"
+                  element.original_language = "🇬🇧"
                 }
               });
-              this.films = result;
-              this.finded = findedMovie;
-          }
-        )
+
+            this.films = answers
+            this.finded = findedMovie;
+          }))
     }
   }
 }
