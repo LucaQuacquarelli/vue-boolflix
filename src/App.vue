@@ -2,10 +2,13 @@
   <div id="app">
     <Header/>
     <div class="app-container">
-      <Aside @search="searchMovie" @home="returnHome"/>
+      <Aside @search="searchMovie" @home="returnHome" @stop="setTrailer"/>
       <Main
       :movies="films"
-      :search="finded"/>
+      :search="finded"
+      :series="series"
+      :stop="stopTrailer"
+      :searching="searchStarted"/>
     </div>
   </div>
 </template>
@@ -28,7 +31,10 @@ export default {
   data: function() {
     return {
       films: [],
-      finded: ""
+      series: [],
+      finded: "",
+      stopTrailer: false,
+      searchStarted: false
     }
   },
   methods: {
@@ -70,13 +76,20 @@ export default {
 
               });
 
-            this.films = answers
-            this.finded = findedMovie;
+            this.films = res[0].data.results
+            this.series = res[1].data.results
+            this.finded = findedMovie
+            this.searchStarted = true
           }))
     },
     returnHome: function() {
       this.films = []
-      this.finded = "";
+      this.series = []
+      this.finded = ""
+      this.searchStarted = false
+    },
+    setTrailer: function(trailer) {
+      this.stopTrailer = trailer
     }
   }
 }

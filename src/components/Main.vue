@@ -1,19 +1,34 @@
 <template>
     <main>
-        <div class="home" v-if="movies.length == 0">
-            <h1>Film, serie TV e tanto altro. <br> Senza limiti.</h1>
-            <p>Guarda ciò che vuoi ovunque.</p>
-        </div>
-        <div class="searched-container"  v-show="movies.length > 0">
-            <h2>Risultati per '{{search}}'</h2>
-            <div class="film-container">
-                <FilmCard v-for="movie in movies" :key="movie.id"
-                :item="movie"
-                :stars="getStars(movie.vote_average)"
-                @setPlay="showTrailer"/>
+        <div class="home" v-if="movies.length == 0 && series.length == 0">
+            <div class="home-text" v-if="!searching">
+                <h1>Film, serie TV e tanto altro. <br> Senza limiti.</h1>
+                <p>Guarda ciò che vuoi ovunque.</p>
             </div>
+            <h1 v-if="searching">La ricerca non ha prodotto risultati per '{{search}}'</h1>
         </div>
-        <div class="trailer-container" v-if="trailer">
+        <div class="searched-container"  v-show="movies.length > 0 && series.length > 0">
+            <h3>Risultati per '{{search}}'</h3>
+            <section class="films-container">
+                <h2>Film</h2>
+                <div class="films">
+                    <FilmCard v-for="movie in movies" :key="movie.id"
+                    :item="movie"
+                    :stars="getStars(movie.vote_average)"
+                    @setPlay="showTrailer"/>
+                </div>
+            </section>
+            <section class="series-container">
+                <h2>Serie Tv</h2>
+                <div class="series">
+                    <FilmCard v-for="serie in series" :key="serie.id"
+                    :item="serie"
+                    :stars="getStars(serie.vote_average)"
+                    @setPlay="showTrailer"/>
+                </div>
+            </section>
+        </div>
+        <div class="trailer-container" v-if="trailer && stop">
             <video controls autoplay>
                 <source src="../assets/video/trailer.mp4" type="video/mp4">
             </video>
@@ -31,7 +46,10 @@ export default {
     },
     props: {
         movies: Array,
-        search: String
+        series: Array,
+        search: String,
+        stop: Boolean,
+        searching: Boolean 
     },
     data: function() {
         return {
@@ -44,6 +62,7 @@ export default {
         },
         showTrailer: function(play) {
             this.trailer = play
+            this.stop = play
         }
     }
     
@@ -79,10 +98,15 @@ export default {
         .searched-container {
             padding: 50px 20px;
             
-            .film-container {
+            h2 {
+                margin: 20px 0;
+
+            }
+
+            .films,
+            .series {
                 display: flex;
                 flex-wrap: wrap;
-                margin: 20px 0;
             }
         }
 
