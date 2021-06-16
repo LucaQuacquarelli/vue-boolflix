@@ -8,7 +8,8 @@
       :search="finded"
       :series="series"
       :stop="stopTrailer"
-      :searching="searchStarted"/>
+      :searching="searchStarted"
+      :genres="genresArray"/>
     </div>
   </div>
 </template>
@@ -32,6 +33,7 @@ export default {
     return {
       films: [],
       series: [],
+      genresArray: [],
       finded: "",
       stopTrailer: false,
       searchStarted: false
@@ -91,7 +93,45 @@ export default {
     setTrailer: function(trailer) {
       this.stopTrailer = trailer
     }
-  }
+  },
+  created: function() {
+
+    axios.all([
+      axios
+        .get("https://api.themoviedb.org/3/genre/movie/list",{
+          params: {
+            api_key: "ffe0662e93ba06b23193db8072b78d11"
+          }
+      }),
+      
+      axios
+        .get("https://api.themoviedb.org/3/genre/tv/list",{
+          params: {
+            api_key: "ffe0662e93ba06b23193db8072b78d11"
+          }
+      })
+    ])
+      
+      .then(axios.spread((...res) => {
+          var answers = res[0].data.genres.concat(res[1].data.genres)
+          
+          const newArray = []
+          const newObject = {}
+
+          
+          answers.forEach(
+            (element) => {
+              let objId = element['id']
+              newObject[objId] = element
+            }
+          )
+
+          for (let i in newObject) {
+            newArray.push(newObject[i]);
+          }
+          this.genresArray = newArray
+        }))
+  } 
 }
 </script>
 
